@@ -72,6 +72,10 @@ export type ApiResponse = {
 
   expiresAt?: string;
 
+  deviceToken?: string;
+
+  isNewDevice?: boolean;
+
   [key: string]: unknown;
 };
 
@@ -87,8 +91,7 @@ function callApi(
     if (!API_URL) {
       resolve({
         success: false,
-        message:
-          "Cornixe API URL is not configured.",
+        message: "Cornixe API URL is not configured.",
       });
 
       return;
@@ -99,13 +102,11 @@ function callApi(
         .toString(36)
         .slice(2, 10)}`;
 
-    const script =
-      document.createElement("script");
+    const script = document.createElement("script");
 
     let completed = false;
 
-    let timeoutId:
-      number | undefined;
+    let timeoutId: number | undefined;
 
     const cleanup = () => {
       if (timeoutId !== undefined) {
@@ -114,10 +115,7 @@ function callApi(
 
       try {
         delete (
-          window as unknown as Record<
-            string,
-            unknown
-          >
+          window as unknown as Record<string, unknown>
         )[callbackName];
       } catch {
         // Ignore cleanup errors
@@ -126,9 +124,7 @@ function callApi(
       script.remove();
     };
 
-    const finish = (
-      result: ApiResponse
-    ) => {
+    const finish = (result: ApiResponse) => {
       if (completed) return;
 
       completed = true;
@@ -138,31 +134,23 @@ function callApi(
       resolve(result);
     };
 
-    /*
+    /**
      * Create global JSONP callback.
      */
-
     (
-      window as unknown as Record<
-        string,
-        unknown
-      >
-    )[callbackName] = (
-      result: ApiResponse
-    ) => {
+      window as unknown as Record<string, unknown>
+    )[callbackName] = (result: ApiResponse) => {
       finish(result);
     };
 
-    const query =
-      new URLSearchParams({
-        ...params,
-        callback: callbackName,
-      });
+    const query = new URLSearchParams({
+      ...params,
+      callback: callbackName,
+    });
 
-    /*
+    /**
      * Prevent the UI from spinning forever.
      */
-
     timeoutId = window.setTimeout(() => {
       finish({
         success: false,
@@ -181,10 +169,9 @@ function callApi(
       });
     };
 
-    /*
+    /**
      * Keep existing leave-submission behavior.
      */
-
     script.onload = () => {
       if (
         !completed &&
@@ -204,6 +191,88 @@ function callApi(
 
     document.body.appendChild(script);
   });
+}
+
+/* =========================================================
+   DEVICE TOKEN
+========================================================= */
+
+/**
+ * Generates a unique device token for this browser.
+ *
+ * The token is stored in localStorage so the same browser
+ * continues to use the same registered device.
+ */
+function createDeviceToken(): string {
+  try {
+    if (
+      typeof crypto !== "undefined" &&
+      typeof crypto.randomUUID === "function"
+    ) {
+      return crypto.randomUUID();
+    }
+  } catch {
+    // Fall back below
+  }
+
+  return (
+    `${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}-${Math.random()
+      .toString(36)
+      .slice(2)}`
+  );
+}
+
+/**
+ * Gets the device token assigned to this browser.
+ *
+ * If the browser does not have one yet, a new token is
+ * generated and saved permanently in localStorage.
+ */
+export function getDeviceToken(): string {
+  try {
+    const existingToken =
+      localStorage.getItem(
+        "cornixe_device_token"
+      );
+
+    if (existingToken) {
+      return existingToken;
+    }
+
+    const newToken =
+      createDeviceToken();
+
+    localStorage.setItem(
+      "cornixe_device_token",
+      newToken
+    );
+
+    return newToken;
+  } catch {
+    // localStorage unavailable
+    return createDeviceToken();
+  }
+}
+
+/**
+ * Clears the registered device token from this browser.
+ *
+ * Normally this should NOT be called during logout.
+ *
+ * It is mainly useful if an admin resets the employee's
+ * registered device and the employee needs to register
+ * the browser again.
+ */
+export function clearDeviceToken(): void {
+  try {
+    localStorage.removeItem(
+      "cornixe_device_token"
+    );
+  } catch {
+    // Ignore storage errors
+  }
 }
 
 /* =========================================================
@@ -242,6 +311,9 @@ export function verifyOtp(
   latitude: number,
   longitude: number
 ): Promise<ApiResponse> {
+  const deviceToken =
+    getDeviceToken();
+
   return callApi(
     {
       action: "verifyOtp",
@@ -257,6 +329,8 @@ export function verifyOtp(
       latitude: String(latitude),
 
       longitude: String(longitude),
+
+      deviceToken,
     },
     30000
   );

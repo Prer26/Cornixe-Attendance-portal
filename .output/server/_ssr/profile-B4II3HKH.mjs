@@ -2,7 +2,7 @@ import { n as __toESM } from "../_runtime.mjs";
 import { u as require_react } from "../_libs/@floating-ui/react-dom+[...].mjs";
 import { P as require_jsx_runtime } from "../_libs/@radix-ui/react-alert-dialog+[...].mjs";
 import { t as Button } from "./button-DZgoqK_7.mjs";
-import { _ as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
+import { x as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
 import { a as Save, d as LogOut, s as PenLine, t as X, w as Camera } from "../_libs/lucide-react.mjs";
 import { a as AlertDialogDescription, c as AlertDialogTitle, i as AlertDialogContent, l as PortalLayout, n as AlertDialogAction, o as AlertDialogFooter, r as AlertDialogCancel, s as AlertDialogHeader, t as AlertDialog } from "./PortalLayout-CdVCS-Js.mjs";
 import { n as Label, t as Input } from "./label-C_eI0375.mjs";

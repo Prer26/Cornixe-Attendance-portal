@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-D0O5vcJ9.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-AjtsGGFF.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/preri/Downloads/Cornixe/src/routes/__root.tsx",
@@ -10,15 +10,16 @@ var tsrStartManifest = () => ({ routes: {
 			"/profile"
 		],
 		preloads: [
-			"/assets/index-CjxhVvS3.js",
+			"/assets/index-BEc5vm8a.js",
 			"/assets/rolldown-runtime-CbXtAM7H.js",
 			"/assets/useNavigate-DDFko3_J.js",
-			"/assets/link-Bb8kCwdP.js"
+			"/assets/link-yKDDl10w.js",
+			"/assets/dist-DtMH3Y-R.js"
 		],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-CjxhVvS3.js"
+			src: "/assets/index-BEc5vm8a.js"
 		} }]
 	},
 	"/": {
@@ -36,8 +37,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/preri/Downloads/Cornixe/src/routes/apply-leave.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/apply-leave-D-I2oM8v.js",
-			"/assets/PortalLayout-DBKj3xJR.js",
+			"/assets/apply-leave-D0IZtP7c.js",
+			"/assets/PortalLayout-BfT9NN4i.js",
 			"/assets/dist-seGCPAkk.js",
 			"/assets/loader-circle-DYLs6Ewx.js",
 			"/assets/label-k7su2aWv.js",
@@ -48,8 +49,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/preri/Downloads/Cornixe/src/routes/dashboard.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/dashboard-Y_6Wrxz9.js",
-			"/assets/PortalLayout-DBKj3xJR.js",
+			"/assets/dashboard-DZ1gYUmH.js",
+			"/assets/PortalLayout-BfT9NN4i.js",
 			"/assets/dist-seGCPAkk.js",
 			"/assets/api-CWMaSxEe.js",
 			"/assets/DataTable-BxpRiB1V.js"
@@ -59,8 +60,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/preri/Downloads/Cornixe/src/routes/my-requests.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/my-requests-CQ5YPU1l.js",
-			"/assets/PortalLayout-DBKj3xJR.js",
+			"/assets/my-requests-BODC35Qu.js",
+			"/assets/PortalLayout-BfT9NN4i.js",
 			"/assets/api-CWMaSxEe.js",
 			"/assets/DataTable-BxpRiB1V.js"
 		]
@@ -69,8 +70,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/preri/Downloads/Cornixe/src/routes/profile.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/profile-Ww0e4-p3.js",
-			"/assets/PortalLayout-DBKj3xJR.js",
+			"/assets/profile-BiFVKfXf.js",
+			"/assets/PortalLayout-BfT9NN4i.js",
 			"/assets/dist-seGCPAkk.js",
 			"/assets/label-k7su2aWv.js"
 		]
